@@ -1,5 +1,6 @@
 package MjLee.cafeMenuService.domain;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class Menu {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
