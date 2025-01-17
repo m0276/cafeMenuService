@@ -29,4 +29,12 @@ public class Menu {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "name = '" + name + "'" +
+                ", price ="  + price +
+                '}';
+    }
 }
