@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 @Table(name = "menu")
 public class Menu {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long number;
     @Column(nullable = false,unique = true)
     private String name;
 
@@ -29,6 +31,12 @@ public class Menu {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long l){this.number = l;}
 
     @Override
     public String toString() {
