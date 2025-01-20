@@ -8,7 +8,8 @@ import jakarta.persistence.*;
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long number;
+    private long id;
+
     @Column(nullable = false,unique = true)
     private String name;
 
@@ -32,17 +33,17 @@ public class Menu {
         this.price = price;
     }
 
-    public Long getNumber() {
-        return number;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumber(Long l){this.number = l;}
+    public void setId(Long l){this.id = l;}
 
     @Override
     public String toString() {
         return "Menu{" +
                 "name = '" + name + "'" +
-                ", price ="  + price +
+                ", price = "  + price +
                 '}';
     }
 }

@@ -19,7 +19,11 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    public Menu saveMenu(Menu menu){
+    public Menu saveMenu(String name, int price){
+        Menu menu = new Menu();
+        menu.setName(name);
+        menu.setPrice(price);
+
         return menuRepository.save(menu);
     }
 
@@ -52,11 +56,11 @@ public class MenuService {
 
     }
 
-    public Optional<Menu> findMenusByPrice(int price){
+    public List<Menu> findMenusByPrice(int price){
 
         if(menuRepository.findAllByPrice(price).isEmpty()){
             System.out.println("해당하는 금액의 메뉴가 존재하지 않습니다. 다시 확인해 주세요");
-            return Optional.empty();
+            return null;
         }
 
         else return menuRepository.findAllByPrice(price);

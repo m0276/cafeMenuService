@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, String>{
     Optional<Menu> findMenuByName(String name);
-    Optional<Menu> findAllByPrice(int price);
+    List<Menu> findAllByPrice(int price);
     void deleteMenuByName(String name);
-
 }

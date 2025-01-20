@@ -19,26 +19,17 @@ class MenuServiceTest {
 
     @Test
     void saveMenu() {
-        Menu menu = new Menu();
-        menu.setName("Menu1");
-        menu.setPrice(5000);
 
-        menuService.saveMenu(menu);
+        menuService.saveMenu("Menu1", 5000);
 
         System.out.println(menuService.showAllMenus());
     }
 
     @Test
     void deleteMenu() {
-        Menu menu = new Menu();
-        menu.setName("Menu1");
-        menu.setPrice(5000);
-        menuService.saveMenu(menu);
+        menuService.saveMenu("Menu1", 5000);
 
-        Menu menu2 = new Menu();
-        menu2.setName("Menu1");
-        menu2.setPrice(5000);
-        menuService.saveMenu(menu2);
+        menuService.saveMenu("Menu2", 5000);
 
         menuService.deleteMenu("Menu1");
 
@@ -46,17 +37,10 @@ class MenuServiceTest {
     }
 
     @Test
-    @Transactional
     void modifyMenuName() {
-        Menu menu = new Menu();
-        menu.setName("Menu1");
-        menu.setPrice(5000);
-        menuService.saveMenu(menu);
+        menuService.saveMenu("Menu1",5000);
 
-        Menu menu2 = new Menu();
-        menu2.setName("Menu1");
-        menu2.setPrice(5000);
-        menuService.saveMenu(menu2);
+        menuService.saveMenu("Menu2", 5000);
 
         menuService.modifyMenuName("Menu1","NewMenu");
 
