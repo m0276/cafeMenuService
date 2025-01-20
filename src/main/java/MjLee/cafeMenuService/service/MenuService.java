@@ -23,8 +23,11 @@ public class MenuService {
         Menu menu = new Menu();
         menu.setName(name);
         menu.setPrice(price);
+        if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
+            menuRepository.save(menu);
+        }
 
-        return menuRepository.save(menu);
+        return menu;
     }
 
 
@@ -34,6 +37,11 @@ public class MenuService {
 
 
     public void modifyMenuName(String oldName,String newName){
+        if(menuRepository.findMenuByName(newName).isPresent()){
+            System.out.println("이미 존재하는 메뉴입니다. 다른 이름을 기입하세요");
+            return;
+        }
+
         if(menuRepository.findMenuByName(oldName).isEmpty()){
             System.out.println("존재하지 않는 메뉴입니다. 다시 확인해 주세요");
             return;
@@ -41,6 +49,9 @@ public class MenuService {
 
         Menu menu = menuRepository.findMenuByName(oldName).get();
         menu.setName(newName);
+//        if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
+//            menuRepository.save(menu);
+//        }
 
     }
 
@@ -53,6 +64,9 @@ public class MenuService {
 
         Menu menu = menuRepository.findMenuByName(name).get();
         menu.setPrice(changePrice);
+//        if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
+//            menuRepository.save(menu);
+//        }
 
     }
 
@@ -70,4 +84,7 @@ public class MenuService {
         return menuRepository.findAll() ;
     }
 
+    public void deleteAll() {
+        menuRepository.deleteAll();
+    }
 }
