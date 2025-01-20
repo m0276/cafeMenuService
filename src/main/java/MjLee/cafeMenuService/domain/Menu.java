@@ -33,12 +33,6 @@ public class Menu {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long l){this.id = l;}
-
     @Override
     public String toString() {
         return "Menu{" +

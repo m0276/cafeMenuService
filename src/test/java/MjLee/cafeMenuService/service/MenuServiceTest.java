@@ -25,17 +25,28 @@ class MenuServiceTest {
 
     @Test
     void saveMenu() {
+        Menu menu = new Menu();
+        menu.setName("Menu1");
+        menu.setPrice(5000);
 
-        menuService.saveMenu("Menu1", 5000);
+        menuService.saveMenu(menu);
 
         System.out.println(menuService.showAllMenus());
     }
 
     @Test
     void deleteMenu() {
-        menuService.saveMenu("Menu1", 5000);
+        Menu menu = new Menu();
+        menu.setName("Menu1");
+        menu.setPrice(5000);
 
-        menuService.saveMenu("Menu2", 5000);
+        menuService.saveMenu(menu);
+
+        Menu menu2 = new Menu();
+        menu2.setName("Menu2");
+        menu2.setPrice(5000);
+
+        menuService.saveMenu(menu2);
 
         menuService.deleteMenu("Menu1");
 
@@ -44,9 +55,17 @@ class MenuServiceTest {
 
     @Test
     void modifyMenuName() {
-        menuService.saveMenu("Menu1",5000);
+        Menu menu = new Menu();
+        menu.setName("Menu1");
+        menu.setPrice(5000);
 
-        menuService.saveMenu("Menu2", 5000);
+        menuService.saveMenu(menu);
+
+        Menu menu2 = new Menu();
+        menu2.setName("Menu2");
+        menu2.setPrice(5000);
+
+        menuService.saveMenu(menu2);
 
         menuService.modifyMenuName("Menu1","NewMenu");
 
@@ -55,9 +74,17 @@ class MenuServiceTest {
 
     @Test
     void modifyMenuPriceByName() {
-        menuService.saveMenu("Menu1",5000);
+        Menu menu = new Menu();
+        menu.setName("Menu1");
+        menu.setPrice(5000);
 
-        menuService.saveMenu("Menu2", 5000);
+        menuService.saveMenu(menu);
+
+        Menu menu2 = new Menu();
+        menu2.setName("Menu2");
+        menu2.setPrice(5000);
+
+        menuService.saveMenu(menu2);
 
         menuService.modifyMenuPriceByName("Menu1",7000);
 
@@ -66,9 +93,17 @@ class MenuServiceTest {
 
     @Test
     void findMenusByPrice() {
-        menuService.saveMenu("Menu1",5000);
+        Menu menu = new Menu();
+        menu.setName("Menu1");
+        menu.setPrice(5000);
 
-        menuService.saveMenu("Menu2", 5000);
+        menuService.saveMenu(menu);
+
+        Menu menu2 = new Menu();
+        menu2.setName("Menu2");
+        menu2.setPrice(5000);
+
+        menuService.saveMenu(menu2);
 
         menuService.findMenusByPrice(5000);
 

@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>이름</th>
+
+        <th>가격</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+              th:each="menu : ${menuList}">
+        <td th:text="${menu.name}"></td>
+        <td th:text="${menu.price}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>

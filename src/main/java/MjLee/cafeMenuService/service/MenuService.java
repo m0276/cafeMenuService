@@ -19,10 +19,7 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    public Menu saveMenu(String name, int price){
-        Menu menu = new Menu();
-        menu.setName(name);
-        menu.setPrice(price);
+    public Menu saveMenu(Menu menu){
         if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
             menuRepository.save(menu);
         }
@@ -49,9 +46,8 @@ public class MenuService {
 
         Menu menu = menuRepository.findMenuByName(oldName).get();
         menu.setName(newName);
-//        if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
-//            menuRepository.save(menu);
-//        }
+
+        menuRepository.save(menu);
 
     }
 
@@ -64,10 +60,8 @@ public class MenuService {
 
         Menu menu = menuRepository.findMenuByName(name).get();
         menu.setPrice(changePrice);
-//        if(menuRepository.findMenuByName(menu.getName()).isEmpty()){
-//            menuRepository.save(menu);
-//        }
 
+        menuRepository.save(menu);
     }
 
     public List<Menu> findMenusByPrice(int price){
@@ -78,6 +72,17 @@ public class MenuService {
         }
 
         else return menuRepository.findAllByPrice(price);
+    }
+
+    public Menu findMenuByName(String name){
+        if(menuRepository.findMenuByName(name).isEmpty()){
+            System.out.println("메뉴 이름을 다시 확인해주세요.");
+            return null;
+        }
+        else{
+            return (Menu) menuRepository.findMenuByName(name).get();
+        }
+
     }
 
     public List<Menu> showAllMenus(){

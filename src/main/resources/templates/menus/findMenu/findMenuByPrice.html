@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+
+
+  <form action="/menus/findMenu/findMenuByPrice" method="post">
+    <div
+            class="form-group">
+      <label
+              for="price">찾을 메뉴 가격</label>
+      <input
+              type="number" id="price" name="price" placeholder="메뉴 가격을 입력하세요">
+
+    </div>
+    <button type="submit">검색</button>
+  </form>
+</div> <!-- /container -->
+</body>
+</html>
