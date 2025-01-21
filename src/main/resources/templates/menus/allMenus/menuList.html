@@ -14,11 +14,18 @@
       <tbody>
       <tr
               th:each="menu : ${menuList}">
-          <td th:text="${menu.name}"></td>
-          <td th:text="${menu.price}"></td>
+          <td th:text="${menu.getName()}"></td>
+          <td th:text="${menu.getPrice()}"></td>
       </tr>
       </tbody>
     </table>
+    <button onclick="goBack()">확인</button>
+
+    <script>
+      function goBack() {
+        window.location.href = '/';  // 홈 화면으로 이동
+      }
+    </script>
   </div>
 </div> <!-- /container -->
 </body>

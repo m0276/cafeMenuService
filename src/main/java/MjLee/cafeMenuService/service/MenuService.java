@@ -28,46 +28,46 @@ public class MenuService {
     }
 
 
-    public void deleteMenu(String name){
-        menuRepository.deleteMenuByName(name);
+    public boolean deleteMenu(String name){
+        if(menuRepository.findMenuByName(name).isEmpty()) return false;
+        else{
+            menuRepository.deleteMenuByName(name);
+            return true;
+        }
     }
 
 
-    public void modifyMenuName(String oldName,String newName){
+    public int modifyMenuName(String oldName,String newName){
         if(menuRepository.findMenuByName(newName).isPresent()){
-            System.out.println("이미 존재하는 메뉴입니다. 다른 이름을 기입하세요");
-            return;
+            return 1;
         }
-
-        if(menuRepository.findMenuByName(oldName).isEmpty()){
-            System.out.println("존재하지 않는 메뉴입니다. 다시 확인해 주세요");
-            return;
+        else if(menuRepository.findMenuByName(oldName).isEmpty()){
+            return -1;
         }
 
         Menu menu = menuRepository.findMenuByName(oldName).get();
         menu.setName(newName);
 
         menuRepository.save(menu);
-
+        return 0;
     }
 
 
-    public void modifyMenuPriceByName(String name, int changePrice){
+    public boolean modifyMenuPriceByName(String name, int changePrice){
         if(menuRepository.findMenuByName(name).isEmpty()){
-            System.out.println("존재하지 않는 메뉴입니다. 다시 확인해 주세요");
-            return;
+            return false;
         }
 
         Menu menu = menuRepository.findMenuByName(name).get();
         menu.setPrice(changePrice);
 
         menuRepository.save(menu);
+        return true;
     }
 
     public List<Menu> findMenusByPrice(int price){
 
         if(menuRepository.findAllByPrice(price).isEmpty()){
-            System.out.println("해당하는 금액의 메뉴가 존재하지 않습니다. 다시 확인해 주세요");
             return null;
         }
 
@@ -76,7 +76,6 @@ public class MenuService {
 
     public Menu findMenuByName(String name){
         if(menuRepository.findMenuByName(name).isEmpty()){
-            System.out.println("메뉴 이름을 다시 확인해주세요.");
             return null;
         }
         else{

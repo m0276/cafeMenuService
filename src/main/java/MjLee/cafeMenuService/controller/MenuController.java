@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -27,13 +26,17 @@ public class MenuController {
 
     @PostMapping("/menus/new")
     public String create(CreateMenu form){
+        if(form.getName() == null || form.getPrice() == 0){
+            return "menus/errorPage";
+        }
+
         Menu menu = new Menu();
         menu.setName(form.getName());
         menu.setPrice(form.getPrice());
 
         menuService.saveMenu(menu);
 
-        return "redirect:/";
+        return "menus/completeProcess";
     }
 
     @GetMapping("/menus/modify")
@@ -49,9 +52,15 @@ public class MenuController {
     @PostMapping("/menus/modifyName")
     public String modifyMenuName(ModifyMenuName form){
 
-        menuService.modifyMenuName(form.getName(),form.getNewName());
+        int  check = menuService.modifyMenuName(form.getName(),form.getNewName());
+        if(check == -1){
+            return "menus/errorPage";
+        }
+        else if(check == 1){
+            return "menus/errorPageName";
+        }
 
-        return "redirect:/";
+        return "menus/completeProcess";
     }
 
     @GetMapping("/menus/modifyPrice")
@@ -62,12 +71,13 @@ public class MenuController {
     @PostMapping("/menus/modifyPrice")
     public String modifyMenuPrice(ModifyMenuPrice form){
 
-        menuService.modifyMenuPriceByName(form.getName(),form.getPrice());
-
-        return "redirect:/";
+        boolean check = menuService.modifyMenuPriceByName(form.getName(),form.getPrice());
+        if(!check){
+            return "menus/errorPage";
+        }
+        return "menus/completeProcess";
     }
-
-
+    
     @GetMapping("/menus/delete")
     public String deleteForm(){
         return "menus/deleteMenu/deleteMenu";
@@ -75,10 +85,14 @@ public class MenuController {
 
     @PostMapping("/menus/delete")
     public String modify(DeleteMenu form){
-
-        menuService.deleteMenu(form.getName());
-
-        return "redirect:/";
+        if(form.getName() == null){
+            return"menus/errorPage";
+        }
+        boolean check = menuService.deleteMenu(form.getName());
+        if(!check){
+            return "menus/errorPage";
+        }
+        return "menus/completeProcess";
     }
 
     @GetMapping("/menus/showAllMenu")
@@ -101,6 +115,10 @@ public class MenuController {
     @PostMapping("/menus/findMenu/findMenuByName")
     public String menuFound(String name, Model model){
         Menu menu = menuService.findMenuByName(name);
+        if(menu == null){
+            return "menus/errorPage";
+        }
+
         model.addAttribute(menu);
         return"menus/findMenu/name";
     }
@@ -113,9 +131,12 @@ public class MenuController {
     @PostMapping("/menus/findMenu/findMenuByPrice")
     public String menuFoundPrice(int price, Model model){
         List<Menu> list = menuService.findMenusByPrice(price);
+        if(list.isEmpty()){
+            return "menus/notFoundMenuByPrice";
+        }
+
         model.addAttribute(list);
+
         return"menus/findMenu/price";
     }
-
-
 }
