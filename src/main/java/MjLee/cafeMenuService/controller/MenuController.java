@@ -26,10 +26,16 @@ public class MenuController {
 
     @PostMapping("/menus/new")
     public String create(CreateMenu form){
-        if(form.getName() == null || form.getPrice() == 0){
-            return "menus/errorPage";
-        }
 
+        if(form.getName().isEmpty() && (form.getPrice() == null || form.getPrice() == 0)){
+            return "menus/error/emptyInput";
+        }
+        else if(form.getName().isEmpty()){
+            return "menus/error/emptyInputName";
+        }
+        else if(form.getPrice() == null || form.getPrice() == 0){
+            return "menus/error/emptyInputPrice";
+        }
         Menu menu = new Menu();
         menu.setName(form.getName());
         menu.setPrice(form.getPrice());
@@ -51,13 +57,19 @@ public class MenuController {
 
     @PostMapping("/menus/modifyName")
     public String modifyMenuName(ModifyMenuName form){
+        if(form.getName().isEmpty() && form.getNewName().isEmpty()){
+            return "menus/error/emptyInput";
+        }
+        else if(form.getName().isEmpty() || form.getNewName().isEmpty()){
+            return "menus/error/emptyInputName";
+        }
 
         int  check = menuService.modifyMenuName(form.getName(),form.getNewName());
         if(check == -1){
-            return "menus/errorPage";
+            return "menus/error/errorPage";
         }
         else if(check == 1){
-            return "menus/errorPageName";
+            return "menus/error/errorPageName";
         }
 
         return "menus/completeProcess";
@@ -70,10 +82,20 @@ public class MenuController {
 
     @PostMapping("/menus/modifyPrice")
     public String modifyMenuPrice(ModifyMenuPrice form){
+        if(form.getName().isEmpty() && (form.getPrice() == null || form.getPrice() == 0)){
+            return "menus/error/emptyInput";
+        }
+        else if(form.getName().isEmpty()){
+            return "menus/error/emptyInputName";
+        }
+        else if(form.getPrice() == null || form.getPrice() == 0){
+            return "menus/error/emptyInputPrice";
+        }
 
         boolean check = menuService.modifyMenuPriceByName(form.getName(),form.getPrice());
+
         if(!check){
-            return "menus/errorPage";
+            return "menus/error/errorPage";
         }
         return "menus/completeProcess";
     }
@@ -86,11 +108,11 @@ public class MenuController {
     @PostMapping("/menus/delete")
     public String modify(DeleteMenu form){
         if(form.getName() == null){
-            return"menus/errorPage";
+            return "menus/error/errorPage";
         }
         boolean check = menuService.deleteMenu(form.getName());
         if(!check){
-            return "menus/errorPage";
+            return "menus/error/errorPage";
         }
         return "menus/completeProcess";
     }
@@ -116,7 +138,7 @@ public class MenuController {
     public String menuFound(String name, Model model){
         Menu menu = menuService.findMenuByName(name);
         if(menu == null){
-            return "menus/errorPage";
+            return "menus/error/errorPage";
         }
 
         model.addAttribute(menu);
@@ -131,12 +153,20 @@ public class MenuController {
     @PostMapping("/menus/findMenu/findMenuByPrice")
     public String menuFoundPrice(int price, Model model){
         List<Menu> list = menuService.findMenusByPrice(price);
-        if(list.isEmpty()){
-            return "menus/notFoundMenuByPrice";
+
+        if(list == null){
+            return "menus/error/notFoundMenuByPrice";
         }
 
         model.addAttribute(list);
 
         return"menus/findMenu/price";
     }
+
+//    @GetMapping("/menus/errorPage")
+//    public String errorPage(){
+//        return "menus/error/errorPage";
+//    }
 }
+
+//오류 고치기

@@ -1,7 +1,7 @@
 package MjLee.cafeMenuService.controller;
 
 public class ModifyMenuPrice {
-    int price;
+    Integer price;
     String name;
 
     public String getName() {
@@ -12,11 +12,11 @@ public class ModifyMenuPrice {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 }
