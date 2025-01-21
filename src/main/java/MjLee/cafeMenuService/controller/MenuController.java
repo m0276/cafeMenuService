@@ -162,11 +162,4 @@ public class MenuController {
 
         return"menus/findMenu/price";
     }
-
-//    @GetMapping("/menus/errorPage")
-//    public String errorPage(){
-//        return "menus/error/errorPage";
-//    }
 }
-
-//오류 고치기
